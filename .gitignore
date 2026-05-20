@@ -15,3 +15,14 @@ hyrox-denver-watch.html
 
 # Local notes / setup docs (not part of the live site)
 LAUNCH-WALKTHROUGH.md
+
+# Carousel tool + strategy docs — kept local, not on live site
+carousel.html
+CAROUSEL-CONTENT.md
+
+# Working/draft logo files (only 303rox-logo.png is the live one)
+303rox-logo-fixed-black.png
+303rox-logo-fixed-black-clean.png
+
+# Scheduled task output — local digests only
+_weekly-digests/
