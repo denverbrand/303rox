@@ -75,18 +75,24 @@ body {
 .masthead {
   border-bottom: 1px solid var(--line-2);
   padding: 20px 32px;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
   background: var(--bg);
   position: sticky;
   top: 0;
   z-index: 50;
+  text-align: center;
 }
-.mast-side { font-size: 13px; color: var(--ink-3); }
-.mast-side strong { color: var(--ink); font-weight: 600; }
-.mast-right { text-align: right; }
-.mast-center { text-align: center; }
+.mast-stack {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.mast-tagline {
+  font-size: 13px;
+  color: var(--ink-3);
+  letter-spacing: 0.04em;
+  font-weight: 500;
+}
 .mast-logo {
   text-decoration: none;
   display: inline-flex;
@@ -1026,14 +1032,13 @@ section#stations .section-num::before {
 
 <!-- ============ MASTHEAD ============ -->
 <header class="masthead">
-  <div class="mast-side"></div>
-  <div class="mast-center">
+  <div class="mast-stack">
     <a href="#" class="mast-logo">
       <img src="303rox-logo.png" alt="303ROX">
       <span class="reg">®</span>
     </a>
+    <div class="mast-tagline">Denver, CO · 5,280 ft</div>
   </div>
-  <div class="mast-side mast-right">Denver, CO · 5,280 ft</div>
 </header>
 
 <nav class="subnav">
@@ -1543,10 +1548,10 @@ section#stations .section-num::before {
 
 <!-- ============ NEWSLETTER ============ -->
 <div class="newsletter">
-  <div class="newsletter-eyebrow">Issue №02 Drops Soon</div>
+  <div class="newsletter-eyebrow">The Drop</div>
   <h2>Built for the<br>thin-air grind.</h2>
   <p>Race intel, training drops, gym sims, and Denver HYROX news — once a week, straight to your inbox. No spam, no fluff.</p>
-  <form onsubmit="event.preventDefault(); alert('Newsletter signup will be wired up when you connect MailerLite, Buttondown, or another provider.');">
+  <form onsubmit="event.preventDefault(); var e = this.querySelector('input').value.trim(); if (!e) return; var subj = encodeURIComponent('Subscribe to 303ROX'); var body = encodeURIComponent('Please add me to the 303ROX newsletter.\n\nEmail: ' + e + '\n\nThanks!'); window.location.href = 'mailto:hello@303rox.com?subject=' + subj + '&body=' + body; this.querySelector('input').value = '';">
     <input type="email" placeholder="email@yourdomain.com" required>
     <button type="submit">Subscribe</button>
   </form>
