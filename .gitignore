@@ -1,0 +1,14 @@
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Editor folders
+.vscode/
+.idea/
+
+# Old drafts — kept locally for reference but not deployed
+hyrox-denver-watch.html
+303rox.html
+
+# Local notes / setup docs (not part of the live site)
+LAUNCH-WALKTHROUGH.md
