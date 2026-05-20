@@ -44,6 +44,16 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.85' numOctaves='2' seed='5'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.65 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.06;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 9999;
+}
 .display { font-family: 'Anton', 'Helvetica Neue Condensed', sans-serif; font-weight: 400; letter-spacing: -0.015em; }
 
 /* ============ TICKER ============ */
@@ -304,6 +314,43 @@ section#events  { background: var(--bg); }
 section#training{ background: var(--bg-3); border-bottom-color: var(--line-2); }
 section#gear    { background: var(--bg-3); border-bottom-color: var(--line-2); }
 section#news    { background: var(--bg-3); border-bottom-color: var(--line-2); }
+section#submit  { background: var(--lime); border-bottom: 2px solid var(--ink); }
+
+/* SUBMIT section internals */
+section#submit .section-num { color: var(--ink); }
+section#submit .section-title { color: var(--ink); }
+section#submit .section-sub { color: var(--ink-2); font-weight: 600; }
+.submit-lead {
+  font-size: 17px;
+  color: var(--ink-2);
+  max-width: 720px;
+  margin-bottom: 32px;
+  line-height: 1.55;
+  font-weight: 500;
+}
+.submit-lead strong { color: var(--ink); font-weight: 700; }
+.submit-buttons {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+.submit-btn {
+  background: var(--ink);
+  color: white;
+  border: 2px solid var(--ink);
+  padding: 16px 26px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
+}
+.submit-btn:hover { background: white; color: var(--ink); transform: translateY(-1px); }
+.submit-fineprint { font-size: 13px; color: var(--ink-3); font-style: italic; }
 
 /* RACE section — lime green with contained ticket card for readability */
 section#race .section-num { color: var(--ink); }
@@ -1034,7 +1081,7 @@ section#stations .section-num::before {
 <header class="masthead">
   <div class="mast-stack">
     <a href="#" class="mast-logo">
-      <img src="303rox-logo.png" alt="303ROX">
+      <img src="303rox-logo-fixed-black-clean.png" alt="303ROX">
       <span class="reg">®</span>
     </a>
     <div class="mast-tagline">Denver, CO · 5,280 ft</div>
@@ -1050,6 +1097,7 @@ section#stations .section-num::before {
   <a href="#stations">Stations</a>
   <a href="#gear">Gear</a>
   <a href="#news">News</a>
+  <a href="#submit">Submit</a>
 </nav>
 
 <!-- ============ HERO ============ -->
@@ -1546,6 +1594,24 @@ section#stations .section-num::before {
   </div>
 </section>
 
+<!-- ============ SUBMIT ============ -->
+<section id="submit">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">/ 09</div>
+      <h2 class="section-title">Got something for the hub?</h2>
+      <div class="section-sub">For Denver gyms, run clubs, and event organizers</div>
+    </div>
+    <p class="submit-lead">303ROX is always adding to the directory. If you run a gym training HYROX athletes, lead a run club, or host an event worth featuring — tell us about it. We'll review and get you added.</p>
+    <div class="submit-buttons">
+      <button class="submit-btn" onclick="submitInfo('gym')">Submit a gym</button>
+      <button class="submit-btn" onclick="submitInfo('club')">Submit a run club</button>
+      <button class="submit-btn" onclick="submitInfo('event')">Submit an event</button>
+    </div>
+    <p class="submit-fineprint">Reviewed weekly. Approved listings go live within 7 days.</p>
+  </div>
+</section>
+
 <!-- ============ NEWSLETTER ============ -->
 <div class="newsletter">
   <div class="newsletter-eyebrow">The Drop</div>
@@ -1562,7 +1628,7 @@ section#stations .section-num::before {
   <div class="footer-grid">
     <div>
       <div class="footer-logo">
-        <img src="303rox-logo.png" alt="303ROX">
+        <img src="303rox-logo-fixed-black-clean.png" alt="303ROX">
         <span class="reg">®</span>
       </div>
       <p class="footer-tagline">An independent Denver HYROX hub. Race intel, training, gyms, run clubs, gear. Built for the thin-air grind.</p>
@@ -1605,6 +1671,27 @@ section#stations .section-num::before {
 </footer>
 
 <script>
+// Partner submission flow — opens email client with pre-filled template
+function submitInfo(type) {
+  const templates = {
+    gym: {
+      subject: '303ROX submission — gym',
+      body: "Hi 303ROX,\n\nI'd like to submit a gym for the directory.\n\nGYM NAME:\nLOCATION / NEIGHBORHOOD:\nWEBSITE:\nHYROX AFFILIATE? (yes/no):\nHYROX OFFERINGS (sled, ski erg, wall ball, sandbags, etc.):\nPUBLIC EVENTS / SIMS (schedule, if any):\nCONTACT EMAIL FOR FOLLOW-UP:\nANYTHING ELSE WE SHOULD KNOW:\n\nThanks!"
+    },
+    club: {
+      subject: '303ROX submission — run club',
+      body: "Hi 303ROX,\n\nI'd like to submit a run club for the directory.\n\nCLUB NAME:\nMEETING SCHEDULE (days, times):\nWHERE YOU MEET:\nCOST (free / donation / paid):\nWEBSITE OR INSTAGRAM:\nCONTACT EMAIL FOR FOLLOW-UP:\nANYTHING ELSE:\n\nThanks!"
+    },
+    event: {
+      subject: '303ROX submission — event',
+      body: "Hi 303ROX,\n\nI'd like to submit an event for the directory.\n\nEVENT NAME:\nDATE OR RECURRENCE:\nLOCATION:\nCOST:\nSHORT DESCRIPTION:\nLINK TO REGISTER OR LEARN MORE:\nCONTACT EMAIL FOR FOLLOW-UP:\nANYTHING ELSE:\n\nThanks!"
+    }
+  };
+  const t = templates[type];
+  if (!t) return;
+  window.location.href = 'mailto:hello@303rox.com?subject=' + encodeURIComponent(t.subject) + '&body=' + encodeURIComponent(t.body);
+}
+
 // Countdown to Nov 12, 2026 8:00 AM Mountain Time (UTC-7)
 const target = new Date('2026-11-12T08:00:00-07:00').getTime();
 function tick() {
