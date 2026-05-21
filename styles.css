@@ -336,12 +336,15 @@ section {
 }
 .container { max-width: 1200px; margin: 0 auto; }
 
-/* SECTION VARIANTS — alternating rhythm with lime peaks */
+/* SECTION VARIANTS — clean white ↔ lavender alternation, lime peaks at /02 + /10, ink at /07 */
+section#what    { background: var(--bg); }
 section#race    { background: var(--lime); border-bottom: 2px solid var(--ink); }
-section#clubs   { background: var(--bg-3); border-bottom-color: var(--line-2); }
-section#events  { background: var(--bg); }
-section#training{ background: var(--bg-3); border-bottom-color: var(--line-2); }
-section#gear    { background: var(--bg-3); border-bottom-color: var(--line-2); }
+section#gyms    { background: var(--bg-3); border-bottom-color: var(--line-2); }
+section#clubs   { background: var(--bg); }
+section#events  { background: var(--bg-3); border-bottom-color: var(--line-2); }
+section#training{ background: var(--bg); }
+/* #stations defined below — full ink */
+section#gear    { background: var(--bg); }
 section#news    { background: var(--bg-3); border-bottom-color: var(--line-2); }
 section#submit  { background: var(--lime); border-bottom: 2px solid var(--ink); }
 
