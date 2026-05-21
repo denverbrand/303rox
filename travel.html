@@ -46,7 +46,7 @@
 <!-- ============ SALE BANNER ============ -->
 <div class="sale-banner">
   <div class="sale-banner-inner">
-    <span><span class="pulse"></span><strong>HYROX Denver tickets — TODAY at 10 AM MST</strong></span>
+    <span><span class="pulse"></span><strong>HYROX Denver tickets — TODAY at 12 PM MST</strong></span>
     <a href="https://usa.hyrox.com/event/hyrox-denver-season-26-27-tnrcsg" target="_blank" rel="noopener" class="sale-cta">Buy on HYROX USA →</a>
   </div>
 </div>
@@ -57,11 +57,11 @@
     <span class="ticker-item">HYROX DENVER <span class="ticker-dot">●</span> NOV 12–15, 2026</span>
     <span class="ticker-item">NATIONAL WESTERN CENTER <span class="ticker-dot">●</span> 4655 HUMBOLDT ST</span>
     <span class="ticker-item">ALTITUDE 5,280 FT <span class="ticker-dot">●</span> ARRIVE 2–3 DAYS EARLY</span>
-    <span class="ticker-item">TICKETS ON SALE TODAY <span class="ticker-dot">●</span> 12:00 PM MDT</span>
+    <span class="ticker-item">TICKETS ON SALE TODAY <span class="ticker-dot">●</span> 12 PM MST</span>
     <span class="ticker-item">HYROX DENVER <span class="ticker-dot">●</span> NOV 12–15, 2026</span>
     <span class="ticker-item">NATIONAL WESTERN CENTER <span class="ticker-dot">●</span> 4655 HUMBOLDT ST</span>
     <span class="ticker-item">ALTITUDE 5,280 FT <span class="ticker-dot">●</span> ARRIVE 2–3 DAYS EARLY</span>
-    <span class="ticker-item">TICKETS ON SALE TODAY <span class="ticker-dot">●</span> 12:00 PM MDT</span>
+    <span class="ticker-item">TICKETS ON SALE TODAY <span class="ticker-dot">●</span> 12 PM MST</span>
   </div>
 </div>
 
@@ -471,6 +471,23 @@
     <strong>HYROX®</strong> is a registered trademark of HYROX World GmbH (Upsolut Sports GmbH). 303ROX® is an independent community resource and is <strong>not affiliated with, endorsed by, or sponsored by HYROX</strong>. All event details, race information, and travel recommendations are sourced from public information and may change — confirm with the official sources before booking travel or registering.
   </div>
 </footer>
+
+<script>
+// Last-updated stamp — pulls from the file's Last-Modified header
+(function() {
+  var el = document.getElementById('last-updated');
+  if (!el) return;
+  var d = new Date(document.lastModified);
+  if (isNaN(d.getTime())) return;
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var hh = d.getHours();
+  var mm = d.getMinutes();
+  var ampm = hh >= 12 ? 'PM' : 'AM';
+  hh = hh % 12; if (hh === 0) hh = 12;
+  var mmStr = mm < 10 ? '0' + mm : String(mm);
+  el.textContent = months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear() + ' · ' + hh + ':' + mmStr + ' ' + ampm + ' MST';
+})();
+</script>
 
 </body>
 </html>
