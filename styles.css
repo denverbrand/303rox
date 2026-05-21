@@ -336,17 +336,42 @@ section {
 }
 .container { max-width: 1200px; margin: 0 auto; }
 
-/* SECTION VARIANTS — clean white ↔ lavender alternation, lime peaks at /02 + /10, ink at /07 */
-section#what    { background: var(--bg); }
+/* SECTION VARIANTS — black anchors at /01 + /07, lime peaks at /02 + /10, lavender/white between */
+section#what    { background: var(--ink); border-bottom: 2px solid var(--ink); }
 section#race    { background: var(--lime); border-bottom: 2px solid var(--ink); }
 section#gyms    { background: var(--bg-3); border-bottom-color: var(--line-2); }
 section#clubs   { background: var(--bg); }
 section#events  { background: var(--bg-3); border-bottom-color: var(--line-2); }
 section#training{ background: var(--bg); }
 /* #stations defined below — full ink */
-section#gear    { background: var(--bg); }
-section#news    { background: var(--bg-3); border-bottom-color: var(--line-2); }
+section#gear    { background: var(--bg-3); border-bottom-color: var(--line-2); }
+section#news    { background: var(--bg); }
 section#submit  { background: var(--lime); border-bottom: 2px solid var(--ink); }
+
+/* WHAT IS HYROX section — full dark, mirrors #stations */
+section#what .section-num { color: var(--lime); }
+section#what .section-title { color: #ffffff; }
+section#what .section-sub { color: #a8a298; }
+section#what .section-head { border-bottom-color: rgba(255,255,255,0.12); padding-bottom: 24px; }
+section#what .race-info-row { border-bottom-color: rgba(255,255,255,0.08); }
+section#what .race-info-label { color: var(--lime); }
+section#what .race-info-value { color: #ece7dd; }
+section#what .race-info-value strong { color: #ffffff; }
+section#what .race-info-value .light { color: #a8a298; }
+section#what .schedule-head {
+  color: var(--ink);
+  font-weight: 800;
+  background: var(--lime);
+  padding: 6px 14px;
+  border-radius: 999px;
+  display: inline-block;
+  margin-bottom: 24px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+}
+section#what .schedule-row { border-bottom-color: rgba(255,255,255,0.08); }
+section#what .schedule-date { color: var(--lime); }
+section#what .schedule-content { color: #b8b3ac; }
 
 /* SUBMIT section internals */
 section#submit .section-num { color: var(--ink); }
@@ -475,7 +500,8 @@ section#gear .gear-list li { border-bottom-color: rgba(194, 85, 43, 0.12); }
 }
 
 /* Inverted sparkle for dark sections */
-section#stations .section-num::before {
+section#stations .section-num::before,
+section#what .section-num::before {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0 L13.5 9 L24 12 L13.5 15 L12 24 L10.5 15 L0 12 L10.5 9 Z' fill='%23c5dc3a'/%3E%3C/svg%3E");
 }
 
