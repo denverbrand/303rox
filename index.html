@@ -159,6 +159,33 @@
   <a href="/travel.html" style="color:var(--ink); background:var(--lime); border:1.5px solid var(--ink); border-radius:999px;">Travel</a>
 </nav>
 
+<!-- ============ KG ↔ LBS CONVERTER ============ -->
+<div class="kg-converter" aria-label="Kilograms to pounds converter">
+  <div class="kg-converter-inner">
+    <span class="kg-converter-label">KG ↔ LBS</span>
+    <div class="kg-converter-fields">
+      <label class="kg-field">
+        <input id="kg-input" type="number" inputmode="decimal" step="0.5" min="0" placeholder="0" aria-label="Kilograms">
+        <span>kg</span>
+      </label>
+      <span class="kg-converter-arrow">=</span>
+      <label class="kg-field">
+        <input id="lbs-input" type="number" inputmode="decimal" step="0.5" min="0" placeholder="0" aria-label="Pounds">
+        <span>lbs</span>
+      </label>
+    </div>
+    <div class="kg-converter-presets" aria-label="Common HYROX weights">
+      <button type="button" class="kg-preset" data-kg="6">6 kg</button>
+      <button type="button" class="kg-preset" data-kg="9">9 kg</button>
+      <button type="button" class="kg-preset" data-kg="10">10 kg</button>
+      <button type="button" class="kg-preset" data-kg="16">16 kg</button>
+      <button type="button" class="kg-preset" data-kg="20">20 kg</button>
+      <button type="button" class="kg-preset" data-kg="24">24 kg</button>
+      <button type="button" class="kg-preset" data-kg="30">30 kg</button>
+    </div>
+  </div>
+</div>
+
 <!-- ============ HERO ============ -->
 <section class="hero" id="top">
   <div class="hero-grid">
@@ -868,6 +895,44 @@ function submitInfo(type) {
   hh = hh % 12; if (hh === 0) hh = 12;
   var mmStr = mm < 10 ? '0' + mm : String(mm);
   el.textContent = months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear() + ' · ' + hh + ':' + mmStr + ' ' + ampm + ' MST';
+})();
+
+// KG ↔ LBS converter
+(function() {
+  var kg = document.getElementById('kg-input');
+  var lbs = document.getElementById('lbs-input');
+  if (!kg || !lbs) return;
+  var K = 2.20462262185;
+  function fmt(n) {
+    if (!isFinite(n)) return '';
+    // round to 1 decimal, drop trailing .0
+    var r = Math.round(n * 10) / 10;
+    return (Math.abs(r - Math.round(r)) < 0.05) ? String(Math.round(r)) : r.toFixed(1);
+  }
+  var lock = false;
+  kg.addEventListener('input', function() {
+    if (lock) return;
+    lock = true;
+    var v = parseFloat(kg.value);
+    lbs.value = isNaN(v) ? '' : fmt(v * K);
+    lock = false;
+  });
+  lbs.addEventListener('input', function() {
+    if (lock) return;
+    lock = true;
+    var v = parseFloat(lbs.value);
+    kg.value = isNaN(v) ? '' : fmt(v / K);
+    lock = false;
+  });
+  var presets = document.querySelectorAll('.kg-preset');
+  for (var i = 0; i < presets.length; i++) {
+    presets[i].addEventListener('click', function() {
+      var v = parseFloat(this.getAttribute('data-kg'));
+      if (isNaN(v)) return;
+      kg.value = fmt(v);
+      lbs.value = fmt(v * K);
+    });
+  }
 })();
 </script>
 

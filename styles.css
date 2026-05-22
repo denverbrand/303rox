@@ -1103,3 +1103,108 @@ section#what .section-num::before {
   max-width: 1200px;
 }
 .disclaimer strong { color: var(--ink-2); font-weight: 600; }
+/* ============ KG ↔ LBS CONVERTER ============ */
+.kg-converter {
+  background: var(--ink);
+  border-bottom: 2px solid var(--ink);
+  color: #ece7dd;
+  font-family: 'Inter', sans-serif;
+}
+.kg-converter-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.kg-converter-label {
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--lime);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.kg-converter-fields {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.kg-field {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px;
+  padding: 6px 10px;
+  transition: border-color .15s ease, background .15s ease;
+}
+.kg-field:focus-within {
+  border-color: var(--lime);
+  background: rgba(197,220,58,0.08);
+}
+.kg-field input {
+  width: 72px;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  text-align: right;
+  -moz-appearance: textfield;
+}
+.kg-field input::-webkit-outer-spin-button,
+.kg-field input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.kg-field input::placeholder { color: #8e8a82; font-weight: 600; }
+.kg-field span {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--lime);
+  text-transform: uppercase;
+}
+.kg-converter-arrow {
+  color: #8e8a82;
+  font-weight: 700;
+  font-size: 14px;
+}
+.kg-converter-presets {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-left: auto;
+}
+.kg-preset {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.18);
+  color: #ece7dd;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  padding: 5px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+.kg-preset:hover {
+  background: var(--lime);
+  color: var(--ink);
+  border-color: var(--lime);
+}
+.kg-preset:active { transform: translateY(1px); }
+
+@media (max-width: 720px) {
+  .kg-converter-inner { padding: 10px 16px; gap: 10px; }
+  .kg-converter-presets { margin-left: 0; width: 100%; }
+  .kg-preset { font-size: 10px; padding: 4px 8px; }
+  .kg-field input { width: 60px; font-size: 14px; }
+}
