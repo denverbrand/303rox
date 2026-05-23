@@ -196,7 +196,7 @@ body::after {
 /* nav */
 .subnav-frame {
   background: var(--bg);
-  padding: 30px 32px 38px;
+  padding: 18px 32px 26px;
 }
 .subnav {
   max-width: 1200px;
@@ -222,10 +222,11 @@ body::after {
 }
 .nav-logo:hover { opacity: 0.8; }
 .nav-logo img {
-  height: 96px;
-  margin: -24px 0;
+  height: 64px;
   width: auto;
+  max-width: 220px;
   display: block;
+  /* defensive: avoid layout tricks that break on iOS Safari + Firefox mobile */
 }
 .nav-links {
   display: flex;
@@ -269,7 +270,7 @@ body::after {
     padding: 8px 16px;
     gap: 12px;
   }
-  .nav-logo img { height: 64px; margin: -12px 0; }
+  .nav-logo img { height: 48px; max-width: 160px; }
   .nav-links {
     flex-wrap: nowrap;
     overflow-x: auto;
