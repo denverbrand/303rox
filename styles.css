@@ -153,24 +153,25 @@ body::after {
 
 /* nav */
 .subnav {
-  border-bottom: 1px solid var(--line);
+  border-top: 1px solid var(--ink);
+  border-bottom: 8px solid var(--ink);
   padding: 14px 32px;
   display: flex;
   justify-content: center;
   gap: 8px;
   flex-wrap: wrap;
-  background: var(--bg);
+  background: var(--bg-3);
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
 }
 .subnav a {
-  color: var(--ink-3);
+  color: var(--ink-2);
   text-decoration: none;
-  transition: color 0.15s ease;
+  transition: all 0.15s ease;
   padding: 6px 14px;
   border-radius: 999px;
 }
-.subnav a:hover { color: var(--ink); background: var(--bg-2); }
+.subnav a:hover { color: var(--ink); background: var(--lime); }
 
 /* Mobile: single-line horizontal scroll instead of multi-row wrap */
 @media (max-width: 700px) {
@@ -182,12 +183,10 @@ body::after {
     padding: 10px 16px;
     gap: 4px;
     font-size: 13px;
+    border-bottom-width: 5px;
     scrollbar-width: none;
     -ms-overflow-style: none;
     -webkit-overflow-scrolling: touch;
-    /* fade hint on right edge */
-    -webkit-mask-image: linear-gradient(to right, black 0, black calc(100% - 24px), transparent 100%);
-    mask-image: linear-gradient(to right, black 0, black calc(100% - 24px), transparent 100%);
   }
   .subnav::-webkit-scrollbar { display: none; }
   .subnav a {
@@ -1136,10 +1135,10 @@ section#what .section-num::before {
   background: var(--ink);
   color: #ece7dd;
   font-family: 'Inter', sans-serif;
-  margin-top: 48px;
-  scroll-margin-top: 80px;
+  margin-top: 32px;
+  scroll-margin-top: 24px;
   border-top: 1px solid rgba(255,255,255,0.12);
-  padding-top: 24px;
+  padding-top: 20px;
 }
 .cheat-inner {
   max-width: 1200px;
