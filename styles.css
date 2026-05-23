@@ -46,6 +46,48 @@ body::after {
 .display { font-family: 'Anton', 'Helvetica Neue Condensed', sans-serif; font-weight: 400; letter-spacing: -0.015em; }
 
 /* ============ SALE BANNER (urgency) ============ */
+/* ============ HERO SALE PILL (inside countdown block) ============ */
+.hero-sale {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--lime);
+  color: var(--ink);
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin: 0 auto 18px;
+  max-width: 100%;
+}
+.hero-sale strong {
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.hero-sale .pulse {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: #d63a3a;
+  border-radius: 50%;
+  animation: pulse 1.4s ease-in-out infinite;
+  flex-shrink: 0;
+}
+.btn-buy {
+  background: var(--lime);
+  color: var(--ink);
+  border-color: var(--ink);
+}
+.btn-buy:hover {
+  background: var(--ink);
+  color: var(--lime);
+  border-color: var(--lime);
+}
+
+/* ============ LEGACY SALE BANNER (deprecated, kept for safety) ============ */
 .sale-banner {
   background: var(--lime);
   border-bottom: 2px solid var(--ink);
