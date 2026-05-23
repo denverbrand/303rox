@@ -1106,23 +1106,39 @@ section#what .section-num::before {
 }
 .disclaimer strong { color: var(--ink-2); font-weight: 600; }
 
-/* ============ CHEAT SHEET SECTION (DIVISION WEIGHTS) ============ */
-section#weights {
+/* ============ DIVISION WEIGHT CHEAT SHEET (inline in Stations) ============ */
+.cheat {
   background: var(--ink);
-  border-bottom: 2px solid var(--ink);
   color: #ece7dd;
-  scroll-margin-top: 24px;
+  font-family: 'Inter', sans-serif;
+  margin-top: 48px;
+  scroll-margin-top: 80px;
+  border-top: 1px solid rgba(255,255,255,0.12);
+  padding-top: 24px;
 }
-section#weights .section-num { color: var(--lime); }
-section#weights .section-title { color: #ffffff; }
-section#weights .section-sub { color: #a8a298; }
-section#weights .section-head { border-bottom-color: rgba(255,255,255,0.12); padding-bottom: 24px; }
-
+.cheat-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.cheat-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.cheat-label {
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  color: var(--lime);
+  text-transform: uppercase;
+}
 .cheat-tabs {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   flex-wrap: wrap;
-  margin-bottom: 20px;
 }
 .cheat-tab {
   background: transparent;
@@ -1130,14 +1146,14 @@ section#weights .section-head { border-bottom-color: rgba(255,255,255,0.12); pad
   color: #ece7dd;
   font-family: 'Inter', sans-serif;
   font-weight: 700;
-  font-size: 13px;
+  font-size: 12px;
   letter-spacing: 0.06em;
-  padding: 10px 18px;
+  padding: 8px 14px;
   border-radius: 999px;
   cursor: pointer;
   transition: all .15s ease;
   text-transform: uppercase;
-  min-height: 40px;
+  min-height: 36px;
 }
 .cheat-tab:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.4); }
 .cheat-tab.is-active {
@@ -1145,20 +1161,19 @@ section#weights .section-head { border-bottom-color: rgba(255,255,255,0.12); pad
   color: var(--ink);
   border-color: var(--lime);
 }
-
 .cheat-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 12px;
+  gap: 10px;
 }
 .cheat-row {
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 10px;
-  padding: 16px 16px;
+  padding: 14px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
   min-width: 0;
 }
 .cheat-station {
@@ -1169,7 +1184,7 @@ section#weights .section-head { border-bottom-color: rgba(255,255,255,0.12); pad
   color: #ffffff;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
 }
 .cheat-station span {
   font-size: 10px;
@@ -1177,9 +1192,10 @@ section#weights .section-head { border-bottom-color: rgba(255,255,255,0.12); pad
   letter-spacing: 0.02em;
   color: #8e8a82;
   text-transform: none;
+  line-height: 1.4;
 }
 .cheat-weight {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 800;
   color: var(--lime);
   font-variant-numeric: tabular-nums;
@@ -1187,7 +1203,7 @@ section#weights .section-head { border-bottom-color: rgba(255,255,255,0.12); pad
   margin-top: auto;
 }
 .cheat-foot {
-  margin-top: 18px;
+  margin-top: 14px;
   font-size: 12px;
   color: #8e8a82;
   line-height: 1.6;
@@ -1196,27 +1212,35 @@ section#weights .section-head { border-bottom-color: rgba(255,255,255,0.12); pad
 
 /* ---- Tablet ---- */
 @media (max-width: 960px) {
-  .cheat-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-  .cheat-row { padding: 14px; }
+  .cheat-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
 }
 
-/* ---- Mobile ---- */
+/* ---- Mobile: stack tabs + horizontal row layout for readability ---- */
 @media (max-width: 600px) {
-  .cheat-grid { grid-template-columns: 1fr; gap: 8px; }
+  .cheat { margin-top: 36px; padding-top: 20px; scroll-margin-top: 60px; }
+  .cheat-head { flex-direction: column; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+  .cheat-tabs { gap: 6px; width: 100%; }
+  .cheat-tab {
+    flex: 1 1 calc(50% - 3px);
+    text-align: center;
+    font-size: 12px;
+    padding: 10px 12px;
+  }
+  .cheat-grid { grid-template-columns: 1fr; gap: 6px; }
   .cheat-row {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    padding: 14px 16px;
+    padding: 12px 14px;
   }
-  .cheat-station { flex: 1 1 auto; }
-  .cheat-weight { margin-top: 0; font-size: 15px; text-align: right; flex-shrink: 0; }
-  .cheat-tab {
-    font-size: 12px;
-    padding: 9px 14px;
-    flex: 1 1 calc(50% - 4px);
-    text-align: center;
+  .cheat-station { flex: 1 1 auto; gap: 2px; }
+  .cheat-weight {
+    margin-top: 0;
+    font-size: 14px;
+    text-align: right;
+    flex-shrink: 0;
+    white-space: nowrap;
   }
-  .cheat-tabs { gap: 6px; }
+  .cheat-foot { font-size: 11px; margin-top: 12px; }
 }
