@@ -1106,120 +1106,117 @@ section#what .section-num::before {
 }
 .disclaimer strong { color: var(--ink-2); font-weight: 600; }
 
-/* ============ DIVISION WEIGHT CHEAT SHEET ============ */
-.cheat {
+/* ============ CHEAT SHEET SECTION (DIVISION WEIGHTS) ============ */
+section#weights {
   background: var(--ink);
+  border-bottom: 2px solid var(--ink);
   color: #ece7dd;
-  font-family: 'Inter', sans-serif;
   scroll-margin-top: 24px;
 }
-/* When inside Stations section, soften the top edge and align with container */
-section#stations .cheat {
-  margin-top: 56px;
-  border-top: 1px solid rgba(255,255,255,0.12);
-  padding-top: 8px;
-}
-section#stations .cheat-inner {
-  max-width: 1200px;
-  padding-left: 0;
-  padding-right: 0;
-}
-.cheat-inner {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 14px 24px 16px;
-}
-.cheat-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 12px;
-  flex-wrap: wrap;
-}
-.cheat-label {
-  font-weight: 800;
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  color: var(--lime);
-  text-transform: uppercase;
-}
+section#weights .section-num { color: var(--lime); }
+section#weights .section-title { color: #ffffff; }
+section#weights .section-sub { color: #a8a298; }
+section#weights .section-head { border-bottom-color: rgba(255,255,255,0.12); padding-bottom: 24px; }
+
 .cheat-tabs {
   display: flex;
-  gap: 6px;
+  gap: 8px;
   flex-wrap: wrap;
+  margin-bottom: 20px;
 }
 .cheat-tab {
   background: transparent;
-  border: 1px solid rgba(255,255,255,0.18);
+  border: 1.5px solid rgba(255,255,255,0.22);
   color: #ece7dd;
   font-family: 'Inter', sans-serif;
   font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  padding: 6px 12px;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  padding: 10px 18px;
   border-radius: 999px;
   cursor: pointer;
   transition: all .15s ease;
   text-transform: uppercase;
+  min-height: 40px;
 }
-.cheat-tab:hover { background: rgba(255,255,255,0.06); }
+.cheat-tab:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.4); }
 .cheat-tab.is-active {
   background: var(--lime);
   color: var(--ink);
   border-color: var(--lime);
 }
+
 .cheat-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 8px;
+  gap: 12px;
 }
 .cheat-row {
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 8px;
-  padding: 10px 12px;
+  border-radius: 10px;
+  padding: 16px 16px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 10px;
   min-width: 0;
 }
 .cheat-station {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #ece7dd;
+  color: #ffffff;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 4px;
 }
 .cheat-station span {
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
   color: #8e8a82;
   text-transform: none;
 }
 .cheat-weight {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 800;
   color: var(--lime);
   font-variant-numeric: tabular-nums;
-  line-height: 1.3;
+  line-height: 1.35;
+  margin-top: auto;
 }
 .cheat-foot {
-  margin-top: 10px;
-  font-size: 10px;
+  margin-top: 18px;
+  font-size: 12px;
   color: #8e8a82;
-  letter-spacing: 0.04em;
+  line-height: 1.6;
+  max-width: 720px;
 }
+
+/* ---- Tablet ---- */
 @media (max-width: 960px) {
-  .cheat-grid { grid-template-columns: repeat(2, 1fr); }
+  .cheat-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .cheat-row { padding: 14px; }
 }
-@media (max-width: 520px) {
-  .cheat-inner { padding: 12px 16px 14px; }
-  .cheat-grid { grid-template-columns: 1fr; }
-  .cheat-tabs { gap: 4px; }
-  .cheat-tab { font-size: 10px; padding: 5px 9px; }
+
+/* ---- Mobile ---- */
+@media (max-width: 600px) {
+  .cheat-grid { grid-template-columns: 1fr; gap: 8px; }
+  .cheat-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 16px;
+  }
+  .cheat-station { flex: 1 1 auto; }
+  .cheat-weight { margin-top: 0; font-size: 15px; text-align: right; flex-shrink: 0; }
+  .cheat-tab {
+    font-size: 12px;
+    padding: 9px 14px;
+    flex: 1 1 calc(50% - 4px);
+    text-align: center;
+  }
+  .cheat-tabs { gap: 6px; }
 }
