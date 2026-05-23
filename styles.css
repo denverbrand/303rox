@@ -471,11 +471,9 @@ section {
 
 /* SECTION VARIANTS — black anchors at /01 + /07, lime peaks at /02 + /10, lavender/white between */
 section#what    { background: var(--ink); border-bottom: 2px solid var(--ink); }
-section#race    { background: var(--lime); border-bottom: 2px solid var(--ink); }
-section#gyms    { background: var(--bg-3); border-bottom-color: var(--line-2); }
-section#clubs   { background: var(--bg); }
-section#events  { background: var(--bg-3); border-bottom-color: var(--line-2); }
-section#training{ background: var(--bg); }
+section#event    { background: var(--lime); border-bottom: 2px solid var(--ink); }
+section#prepare { background: var(--bg-3); border-bottom-color: var(--line-2); }
+section#events  { background: var(--bg); }
 /* #stations defined below — full ink */
 section#gear    { background: var(--bg-3); border-bottom-color: var(--line-2); }
 section#news    { background: var(--bg); }
@@ -543,9 +541,9 @@ section#submit .section-sub { color: var(--ink-2); font-weight: 600; }
 .submit-fineprint { font-size: 13px; color: var(--ink-3); font-style: italic; }
 
 /* RACE section — lime green with contained ticket card for readability */
-section#race .section-num { color: var(--ink); }
-section#race .section-sub { color: var(--ink-2); font-weight: 600; }
-section#race .race-grid {
+section#event .section-num { color: var(--ink); }
+section#event .section-sub { color: var(--ink-2); font-weight: 600; }
+section#event .race-grid {
   background: var(--bg);
   border: 2px solid var(--ink);
   border-radius: 16px;
@@ -554,7 +552,7 @@ section#race .race-grid {
   position: relative;
   box-shadow: 8px 8px 0 var(--ink);
 }
-section#race .race-grid::before, section#race .race-grid::after {
+section#event .race-grid::before, section#event .race-grid::after {
   content: '';
   position: absolute;
   width: 22px;
@@ -564,17 +562,17 @@ section#race .race-grid::before, section#race .race-grid::after {
   background-repeat: no-repeat;
   pointer-events: none;
 }
-section#race .race-grid::before { top: -14px; left: 32px; }
-section#race .race-grid::after { bottom: -14px; right: 48px; width: 18px; height: 18px; transform: rotate(-15deg); }
-section#race .race-info-row { border-bottom-color: var(--line); }
-section#race .schedule-row { border-bottom-color: var(--line); }
-section#race .race-info-label { color: var(--ink-3); }
-section#race .race-info-value .light { color: var(--ink-3); }
-section#race .schedule-date { color: var(--ink); }
-section#race .schedule-head { color: var(--ink); font-weight: 800; background: var(--lime); padding: 5px 12px; border-radius: 999px; border: 1.5px solid var(--ink); display: inline-block; }
+section#event .race-grid::before { top: -14px; left: 32px; }
+section#event .race-grid::after { bottom: -14px; right: 48px; width: 18px; height: 18px; transform: rotate(-15deg); }
+section#event .race-info-row { border-bottom-color: var(--line); }
+section#event .schedule-row { border-bottom-color: var(--line); }
+section#event .race-info-label { color: var(--ink-3); }
+section#event .race-info-value .light { color: var(--ink-3); }
+section#event .schedule-date { color: var(--ink); }
+section#event .schedule-head { color: var(--ink); font-weight: 800; background: var(--lime); padding: 5px 12px; border-radius: 999px; border: 1.5px solid var(--ink); display: inline-block; }
 
 @media (max-width: 800px) {
-  section#race .race-grid { padding: 32px 28px; gap: 36px; box-shadow: 5px 5px 0 var(--ink); }
+  section#event .race-grid { padding: 32px 28px; gap: 36px; box-shadow: 5px 5px 0 var(--ink); }
 }
 
 /* STATIONS goes full dark */
@@ -630,6 +628,29 @@ section#gear .gear-list li { border-bottom-color: rgba(194, 85, 43, 0.12); }
   background-repeat: no-repeat;
   background-position: center;
   flex-shrink: 0;
+}
+
+/* Sub-section heads — for sub-blocks inside Prepare */
+.sub-head {
+  margin: 64px 0 28px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line-2);
+  scroll-margin-top: 24px;
+}
+.sub-head:first-of-type { margin-top: 0; }
+.sub-eyebrow {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 28px;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.sub-sub {
+  font-size: 13px;
+  color: var(--ink-3);
+  letter-spacing: 0.04em;
+  margin-top: 6px;
+  font-weight: 600;
 }
 
 /* Inverted sparkle for dark sections */
