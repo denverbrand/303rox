@@ -218,7 +218,7 @@ body::after {
 /* nav */
 .subnav-frame {
   background: var(--bg);
-  padding: 20px 32px 28px;
+  padding: 30px 32px 38px;
 }
 .subnav {
   max-width: 1200px;
@@ -233,6 +233,7 @@ body::after {
   gap: 20px;
   font-size: 14px;
   font-weight: 600;
+  overflow: visible;
 }
 .nav-logo {
   flex-shrink: 0;
@@ -243,7 +244,8 @@ body::after {
 }
 .nav-logo:hover { opacity: 0.8; }
 .nav-logo img {
-  height: 56px;
+  height: 96px;
+  margin: -24px 0;
   width: auto;
   display: block;
 }
@@ -271,18 +273,25 @@ body::after {
   border: 1.5px solid var(--ink);
 }
 
-/* Mobile: keep boxed nav, shrink logo, horizontal scroll on links */
+/* Mobile: drop the box, full-width nav with chunky underline */
 @media (max-width: 700px) {
   .subnav-frame {
-    padding: 14px 16px 22px;
+    padding: 0;
+    background: transparent;
   }
   .subnav {
-    padding: 10px 14px;
+    max-width: 100%;
+    margin: 0;
+    background: var(--bg-3);
+    border: none;
+    border-top: 1px solid var(--ink);
+    border-bottom: 5px solid var(--ink);
+    border-radius: 0;
+    box-shadow: none;
+    padding: 8px 16px;
     gap: 12px;
-    border-radius: 12px;
-    box-shadow: 5px 5px 0 var(--ink);
   }
-  .nav-logo img { height: 42px; }
+  .nav-logo img { height: 64px; margin: -12px 0; }
   .nav-links {
     flex-wrap: nowrap;
     overflow-x: auto;

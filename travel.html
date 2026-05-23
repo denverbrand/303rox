@@ -44,23 +44,21 @@
 </head>
 <body>
 
-<!-- ============ UTILITY BAR (location + updated stamp) ============ -->
-<div class="util-bar">
-  <div class="util-left">Denver, CO <span class="util-dot">●</span> 5,280 ft</div>
-  <div class="util-right">Updated <span id="last-updated">May 20, 2026</span></div>
-</div>
-
-<!-- ============ TICKER (scrolling marketing copy) ============ -->
+<!-- ============ TICKER (single scrolling bar — tagline, updated, marketing) ============ -->
 <div class="ticker">
   <div class="ticker-track">
+    <span class="ticker-item">DENVER, CO <span class="ticker-dot">●</span> 5,280 FT</span>
     <span class="ticker-item">HYROX DENVER <span class="ticker-dot">●</span> NOV 12–15, 2026</span>
     <span class="ticker-item">NATIONAL WESTERN CENTER <span class="ticker-dot">●</span> 4655 HUMBOLDT ST</span>
-    <span class="ticker-item">ALTITUDE 5,280 FT <span class="ticker-dot">●</span> ARRIVE 2–3 DAYS EARLY</span>
+    <span class="ticker-item">ARRIVE 2–3 DAYS EARLY <span class="ticker-dot">●</span> ALTITUDE TRAINING</span>
     <span class="ticker-item">TICKETS ON SALE NOW <span class="ticker-dot">●</span> STILL AVAILABLE</span>
+    <span class="ticker-item">UPDATED <span class="last-updated">MAY 20, 2026</span></span>
+    <span class="ticker-item">DENVER, CO <span class="ticker-dot">●</span> 5,280 FT</span>
     <span class="ticker-item">HYROX DENVER <span class="ticker-dot">●</span> NOV 12–15, 2026</span>
     <span class="ticker-item">NATIONAL WESTERN CENTER <span class="ticker-dot">●</span> 4655 HUMBOLDT ST</span>
-    <span class="ticker-item">ALTITUDE 5,280 FT <span class="ticker-dot">●</span> ARRIVE 2–3 DAYS EARLY</span>
+    <span class="ticker-item">ARRIVE 2–3 DAYS EARLY <span class="ticker-dot">●</span> ALTITUDE TRAINING</span>
     <span class="ticker-item">TICKETS ON SALE NOW <span class="ticker-dot">●</span> STILL AVAILABLE</span>
+    <span class="ticker-item">UPDATED <span class="last-updated">MAY 20, 2026</span></span>
   </div>
 </div>
 
@@ -470,19 +468,22 @@
 </footer>
 
 <script>
-// Last-updated stamp — pulls from the file's Last-Modified header
+// Last-updated stamp — pulls from the file's Last-Modified header, populates all .last-updated elements
 (function() {
-  var el = document.getElementById('last-updated');
-  if (!el) return;
+  var els = document.querySelectorAll('.last-updated');
+  if (!els.length) return;
   var d = new Date(document.lastModified);
   if (isNaN(d.getTime())) return;
-  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
   var hh = d.getHours();
   var mm = d.getMinutes();
   var ampm = hh >= 12 ? 'PM' : 'AM';
   hh = hh % 12; if (hh === 0) hh = 12;
   var mmStr = mm < 10 ? '0' + mm : String(mm);
-  el.textContent = months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear() + ' · ' + hh + ':' + mmStr + ' ' + ampm + ' MST';
+  var text = months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear() + ' · ' + hh + ':' + mmStr + ' ' + ampm + ' MST';
+  for (var i = 0; i < els.length; i++) {
+    els[i].textContent = text;
+  }
 })();
 
 // Division weight cheat sheet
