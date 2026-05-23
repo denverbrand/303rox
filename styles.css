@@ -328,6 +328,8 @@ body::after {
 .btn:hover { background: var(--lime); color: var(--ink); border-color: var(--ink); }
 .btn-ghost { background: transparent; color: #ece7dd; border-color: rgba(255,255,255,0.3); }
 .btn-ghost:hover { background: var(--lime); color: var(--ink); border-color: var(--lime); }
+.btn-weights { background: var(--lime); color: var(--ink); border-color: var(--ink); }
+.btn-weights:hover { background: var(--ink); color: var(--lime); border-color: var(--lime); }
 
 /* ============ SECTIONS ============ */
 section {
@@ -1107,9 +1109,20 @@ section#what .section-num::before {
 /* ============ DIVISION WEIGHT CHEAT SHEET ============ */
 .cheat {
   background: var(--ink);
-  border-bottom: 2px solid var(--ink);
   color: #ece7dd;
   font-family: 'Inter', sans-serif;
+  scroll-margin-top: 24px;
+}
+/* When inside Stations section, soften the top edge and align with container */
+section#stations .cheat {
+  margin-top: 56px;
+  border-top: 1px solid rgba(255,255,255,0.12);
+  padding-top: 8px;
+}
+section#stations .cheat-inner {
+  max-width: 1200px;
+  padding-left: 0;
+  padding-right: 0;
 }
 .cheat-inner {
   max-width: 1280px;
