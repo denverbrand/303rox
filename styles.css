@@ -172,6 +172,31 @@ body::after {
 }
 .subnav a:hover { color: var(--ink); background: var(--bg-2); }
 
+/* Mobile: single-line horizontal scroll instead of multi-row wrap */
+@media (max-width: 700px) {
+  .subnav {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 10px 16px;
+    gap: 4px;
+    font-size: 13px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch;
+    /* fade hint on right edge */
+    -webkit-mask-image: linear-gradient(to right, black 0, black calc(100% - 24px), transparent 100%);
+    mask-image: linear-gradient(to right, black 0, black calc(100% - 24px), transparent 100%);
+  }
+  .subnav::-webkit-scrollbar { display: none; }
+  .subnav a {
+    flex-shrink: 0;
+    padding: 6px 12px;
+    white-space: nowrap;
+  }
+}
+
 /* ============ HERO ============ */
 .hero {
   padding: 48px 32px 56px;
