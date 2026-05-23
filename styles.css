@@ -466,7 +466,14 @@ body::after {
 }
 .hero-sale-arrow { display: inline-block; margin-left: 4px; }
 
-.hero-cta { display: none; }
+.hero-cta {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+  justify-content: center;
+}
+.hero-cta .btn { flex: 1 1 0; min-width: 90px; padding: 11px 14px; font-size: 12px; }
 
 .btn {
   display: inline-flex;
