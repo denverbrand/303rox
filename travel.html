@@ -89,30 +89,20 @@
   <a href="/travel.html" style="color:var(--ink); background:var(--lime); border:1.5px solid var(--ink); border-radius:999px;">Travel</a>
 </nav>
 
-<!-- ============ KG ↔ LBS CONVERTER ============ -->
-<div class="kg-converter" aria-label="Kilograms to pounds converter">
-  <div class="kg-converter-inner">
-    <span class="kg-converter-label">KG ↔ LBS</span>
-    <div class="kg-converter-fields">
-      <label class="kg-field">
-        <input id="kg-input" type="number" inputmode="decimal" step="0.5" min="0" placeholder="0" aria-label="Kilograms">
-        <span>kg</span>
-      </label>
-      <span class="kg-converter-arrow">=</span>
-      <label class="kg-field">
-        <input id="lbs-input" type="number" inputmode="decimal" step="0.5" min="0" placeholder="0" aria-label="Pounds">
-        <span>lbs</span>
-      </label>
+<!-- ============ DIVISION WEIGHT CHEAT SHEET ============ -->
+<div class="cheat" aria-label="HYROX station weights by division">
+  <div class="cheat-inner">
+    <div class="cheat-head">
+      <span class="cheat-label">Station Weights</span>
+      <div class="cheat-tabs" role="tablist">
+        <button type="button" class="cheat-tab is-active" data-div="open-m" role="tab" aria-selected="true">Open M</button>
+        <button type="button" class="cheat-tab" data-div="open-w" role="tab" aria-selected="false">Open W</button>
+        <button type="button" class="cheat-tab" data-div="pro-m" role="tab" aria-selected="false">Pro M</button>
+        <button type="button" class="cheat-tab" data-div="pro-w" role="tab" aria-selected="false">Pro W</button>
+      </div>
     </div>
-    <div class="kg-converter-presets" aria-label="Common HYROX weights">
-      <button type="button" class="kg-preset" data-kg="6">6 kg</button>
-      <button type="button" class="kg-preset" data-kg="9">9 kg</button>
-      <button type="button" class="kg-preset" data-kg="10">10 kg</button>
-      <button type="button" class="kg-preset" data-kg="16">16 kg</button>
-      <button type="button" class="kg-preset" data-kg="20">20 kg</button>
-      <button type="button" class="kg-preset" data-kg="24">24 kg</button>
-      <button type="button" class="kg-preset" data-kg="30">30 kg</button>
-    </div>
+    <div class="cheat-grid" id="cheat-grid" role="tabpanel" aria-live="polite"></div>
+    <div class="cheat-foot">Doubles teams use the same weights as the equivalent solo division. Mixed Doubles uses Open M.</div>
   </div>
 </div>
 
@@ -516,41 +506,67 @@
   el.textContent = months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear() + ' · ' + hh + ':' + mmStr + ' ' + ampm + ' MST';
 })();
 
-// KG ↔ LBS converter
+// Division weight cheat sheet
 (function() {
-  var kg = document.getElementById('kg-input');
-  var lbs = document.getElementById('lbs-input');
-  if (!kg || !lbs) return;
-  var K = 2.20462262185;
-  function fmt(n) {
-    if (!isFinite(n)) return '';
-    var r = Math.round(n * 10) / 10;
-    return (Math.abs(r - Math.round(r)) < 0.05) ? String(Math.round(r)) : r.toFixed(1);
-  }
-  var lock = false;
-  kg.addEventListener('input', function() {
-    if (lock) return;
-    lock = true;
-    var v = parseFloat(kg.value);
-    lbs.value = isNaN(v) ? '' : fmt(v * K);
-    lock = false;
-  });
-  lbs.addEventListener('input', function() {
-    if (lock) return;
-    lock = true;
-    var v = parseFloat(lbs.value);
-    kg.value = isNaN(v) ? '' : fmt(v / K);
-    lock = false;
-  });
-  var presets = document.querySelectorAll('.kg-preset');
-  for (var i = 0; i < presets.length; i++) {
-    presets[i].addEventListener('click', function() {
-      var v = parseFloat(this.getAttribute('data-kg'));
-      if (isNaN(v)) return;
-      kg.value = fmt(v);
-      lbs.value = fmt(v * K);
+  var grid = document.getElementById('cheat-grid');
+  if (!grid) return;
+  var stations = [
+    { name: 'Sled Push', meta: '50 m',
+      'open-m': '152 kg / 335 lbs',
+      'open-w': '102 kg / 225 lbs',
+      'pro-m':  '202 kg / 445 lbs',
+      'pro-w':  '152 kg / 335 lbs' },
+    { name: 'Sled Pull', meta: '50 m',
+      'open-m': '103 kg / 227 lbs',
+      'open-w': '78 kg / 172 lbs',
+      'pro-m':  '153 kg / 337 lbs',
+      'pro-w':  '103 kg / 227 lbs' },
+    { name: "Farmer's Carry", meta: '200 m · 2 KBs',
+      'open-m': '2 × 24 kg / 2 × 53 lbs',
+      'open-w': '2 × 16 kg / 2 × 35 lbs',
+      'pro-m':  '2 × 32 kg / 2 × 71 lbs',
+      'pro-w':  '2 × 24 kg / 2 × 53 lbs' },
+    { name: 'Sandbag Lunges', meta: '100 m',
+      'open-m': '20 kg / 44 lbs',
+      'open-w': '10 kg / 22 lbs',
+      'pro-m':  '30 kg / 66 lbs',
+      'pro-w':  '20 kg / 44 lbs' },
+    { name: 'Wall Balls', meta: 'Open W: 75 reps · all others: 100',
+      'open-m': '6 kg / 13 lbs',
+      'open-w': '4 kg / 9 lbs',
+      'pro-m':  '9 kg / 20 lbs',
+      'pro-w':  '6 kg / 13 lbs' }
+  ];
+  var current = 'open-m';
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function(c) {
+      return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c];
     });
   }
+  function render() {
+    var html = '';
+    for (var i = 0; i < stations.length; i++) {
+      var s = stations[i];
+      html += '<div class="cheat-row">';
+      html += '<div class="cheat-station">' + escapeHtml(s.name) + '<span>' + escapeHtml(s.meta) + '</span></div>';
+      html += '<div class="cheat-weight">' + escapeHtml(s[current]) + '</div>';
+      html += '</div>';
+    }
+    grid.innerHTML = html;
+  }
+  var tabs = document.querySelectorAll('.cheat-tab');
+  for (var i = 0; i < tabs.length; i++) {
+    tabs[i].addEventListener('click', function() {
+      current = this.getAttribute('data-div');
+      for (var j = 0; j < tabs.length; j++) {
+        var on = tabs[j].getAttribute('data-div') === current;
+        tabs[j].classList.toggle('is-active', on);
+        tabs[j].setAttribute('aria-selected', on ? 'true' : 'false');
+      }
+      render();
+    });
+  }
+  render();
 })();
 </script>
 
