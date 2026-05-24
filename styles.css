@@ -24,7 +24,13 @@
   --accent-soft: var(--lime-soft);
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  /* Prevent Instagram / Android WebViews from auto-inflating text + images */
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   background: var(--bg);
@@ -219,13 +225,19 @@ body::after {
   align-items: center;
   text-decoration: none;
   transition: opacity 0.15s ease;
+  /* Cap the container too — Instagram WebView ignores img max-width during initial layout */
+  height: 64px;
+  max-width: 220px;
+  overflow: hidden;
 }
 .nav-logo:hover { opacity: 0.8; }
 .nav-logo img {
   height: 64px;
   width: auto;
   max-width: 220px;
+  max-height: 64px;
   display: block;
+  object-fit: contain;
   /* defensive: avoid layout tricks that break on iOS Safari + Firefox mobile */
 }
 .nav-links {
@@ -270,7 +282,8 @@ body::after {
     padding: 8px 16px;
     gap: 12px;
   }
-  .nav-logo img { height: 48px; max-width: 160px; }
+  .nav-logo { height: 48px; max-width: 160px; }
+  .nav-logo img { height: 48px; max-width: 160px; max-height: 48px; }
   .nav-links {
     flex-wrap: nowrap;
     overflow-x: auto;
