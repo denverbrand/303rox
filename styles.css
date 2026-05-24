@@ -207,13 +207,16 @@ body::after {
 .subnav {
   max-width: 1200px;
   margin: 0 auto;
+  background: #dcc6d9;            /* literal lavender — fallback if CSS vars get stripped */
   background: var(--bg-3);
-  border: 2px solid var(--ink);
+  border: 2px solid #0f0e0c;
   border-radius: 14px;
-  box-shadow: 8px 8px 0 var(--ink);
+  box-shadow: 8px 8px 0 #0f0e0c;
   padding: 12px 20px;
   display: flex;
+  flex-direction: row;            /* explicit — some WebViews don't default reliably */
   align-items: center;
+  flex-wrap: nowrap;
   gap: 20px;
   font-size: 14px;
   font-weight: 600;
@@ -264,8 +267,10 @@ body::after {
   border: 1.5px solid var(--ink);
 }
 
-/* Mobile: drop the box, full-width nav with chunky underline */
-@media (max-width: 700px) {
+/* Mobile + narrow tablet + IG WebView: drop the box, full-width lavender bar */
+/* Breakpoint bumped to 900px to catch Instagram's in-app browser, which renders */
+/* at a wider effective viewport than the actual phone width.                  */
+@media (max-width: 900px) {
   .subnav-frame {
     padding: 0;
     background: transparent;
@@ -273,16 +278,21 @@ body::after {
   .subnav {
     max-width: 100%;
     margin: 0;
+    background: #dcc6d9;            /* literal lavender — fallback if CSS vars get stripped */
     background: var(--bg-3);
     border: none;
-    border-top: 1px solid var(--ink);
-    border-bottom: 5px solid var(--ink);
+    border-top: 1px solid #0f0e0c;
+    border-bottom: 5px solid #0f0e0c;
     border-radius: 0;
     box-shadow: none;
     padding: 8px 16px;
     gap: 12px;
+    display: flex;
+    flex-direction: row;            /* explicit — some WebViews don't default reliably */
+    align-items: center;
+    flex-wrap: nowrap;
   }
-  .nav-logo { height: 48px; max-width: 160px; }
+  .nav-logo { height: 48px; max-width: 160px; flex-shrink: 0; }
   .nav-logo img { height: 48px; max-width: 160px; max-height: 48px; }
   .nav-links {
     flex-wrap: nowrap;
@@ -294,6 +304,8 @@ body::after {
     scrollbar-width: none;
     -ms-overflow-style: none;
     -webkit-overflow-scrolling: touch;
+    flex: 1 1 auto;
+    min-width: 0;
   }
   .nav-links::-webkit-scrollbar { display: none; }
   .nav-links a {
