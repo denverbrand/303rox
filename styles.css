@@ -1089,39 +1089,13 @@ section#what .section-num::before {
   transform: rotateY(180deg);
   background: #0f0e0c;
   border: 1px solid var(--accent);
-  overflow: hidden;
 }
 .station-face-back iframe {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  /* Scale up slightly to crop YouTube's side letterbox bars */
-  width: 112%;
-  height: 112%;
-  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
   border: 0;
   display: block;
   pointer-events: none;
-}
-/* Black masks to cover YouTube chrome the iframe can't be stripped of */
-.yt-mask {
-  position: absolute;
-  background: #0f0e0c;
-  z-index: 3;
-  pointer-events: none;
-  display: block;
-}
-.yt-mask-top {
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 11%; /* covers channel banner during paused/loading moments */
-}
-.yt-mask-shorts {
-  bottom: 0;
-  right: 0;
-  width: 38%;
-  height: 6%; /* covers the "Shorts" watermark badge in bottom-right */
 }
 .station-num {
   font-size: 12px;
