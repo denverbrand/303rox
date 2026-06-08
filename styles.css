@@ -646,12 +646,12 @@ section#stations .section-num { color: var(--accent); }
 section#stations .section-title { color: #ffffff; }
 section#stations .section-sub { color: #a8a298; }
 section#stations .section-head { border-bottom-color: rgba(255,255,255,0.1); padding-bottom: 24px; }
-section#stations .station-face-front {
+section#stations .station {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
   color: #ece7dd;
 }
-section#stations .station:hover .station-face-front {
+section#stations .station:hover {
   border-color: var(--accent);
   background: rgba(255, 255, 255, 0.06);
 }
@@ -1042,7 +1042,7 @@ section#what .section-num::before {
 }
 .tips ol li strong { color: white; font-weight: 700; }
 
-/* ============ STATIONS (flip-card grid, 9:16 portrait) ============ */
+/* ============ STATIONS (flat grid, 9:16 portrait, video-bg on hover) ============ */
 .stations {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1054,48 +1054,48 @@ section#what .section-num::before {
 .station {
   position: relative;
   aspect-ratio: 9 / 16;
-  perspective: 1400px;
-}
-.station-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  -webkit-transform-style: preserve-3d;
-  transform-style: preserve-3d;
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.station.has-video { cursor: pointer; }
-.station.has-video:hover .station-inner,
-.station.has-video.is-playing .station-inner {
-  transform: rotateY(180deg);
-}
-.station-face {
-  position: absolute;
-  inset: 0;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  border-radius: 12px;
-  overflow: hidden;
+  padding: 20px;
   display: flex;
   flex-direction: column;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.3s ease, background 0.3s ease;
 }
-.station-face-front {
-  padding: 20px;
-  background: var(--bg-2);
-  border: 1px solid var(--line);
-  transition: border-color 0.15s ease, background 0.15s ease;
+/* Video background — sits behind all card content */
+.station-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.22;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
 }
-.station-face-back {
-  transform: rotateY(180deg);
-  background: #0f0e0c;
-  border: 1px solid var(--accent);
-}
-.station-face-back iframe {
-  width: 100%;
-  height: 100%;
+.station-bg iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* Scale up to crop YouTube's letterbox bars; iframe fills card edge-to-edge */
+  width: 110%;
+  height: 110%;
+  transform: translate(-50%, -50%);
   border: 0;
   display: block;
-  pointer-events: none;
+}
+.station-bg::after {
+  /* Dark gradient overlay so text stays readable when video is at full opacity */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15, 14, 12, 0.55) 0%, rgba(15, 14, 12, 0.35) 60%, rgba(15, 14, 12, 0.65) 100%);
+}
+.station.has-video:hover .station-bg { opacity: 1; }
+/* Push all card text content above the bg */
+.station > .station-num,
+.station > .station-name,
+.station > .station-dist,
+.station > .station-desc {
+  position: relative;
+  z-index: 1;
 }
 .station-num {
   font-size: 12px;
@@ -1125,26 +1125,8 @@ section#what .section-num::before {
   line-height: 1.5;
   margin-top: auto;
 }
-.station-video-hint {
-  position: absolute;
-  bottom: 14px;
-  right: 14px;
-  background: rgba(15, 14, 12, 0.85);
-  color: var(--accent);
-  padding: 5px 10px;
-  border-radius: 4px;
-  font-family: 'Archivo Black', sans-serif;
-  font-size: 10px;
-  letter-spacing: 1.2px;
-  pointer-events: none;
-  z-index: 2;
-}
-@media (hover: none) {
-  .station-video-hint { font-size: 0; }
-  .station-video-hint::before { content: '▶ TAP'; font-size: 10px; letter-spacing: 1.2px; }
-}
 @media (max-width: 500px) {
-  .station-face-front { padding: 16px; }
+  .station { padding: 16px; }
   .station-name { font-size: 22px; }
   .station-desc { font-size: 12px; }
 }
