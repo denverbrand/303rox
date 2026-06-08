@@ -28,3 +28,6 @@ stories.html
 
 # Scheduled task output — local digests only
 _weekly-digests/
+
+# Raw video source files — too big for the repo, videos served via YouTube embeds
+videos/
