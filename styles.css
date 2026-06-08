@@ -1066,8 +1066,8 @@ section#what .section-num::before {
   position: absolute;
   inset: 0;
   z-index: 0;
-  opacity: 0.22;
-  transition: opacity 0.5s ease;
+  background: #0f0e0c;
+  overflow: hidden;
   pointer-events: none;
 }
 .station-bg iframe {
@@ -1081,14 +1081,29 @@ section#what .section-num::before {
   border: 0;
   display: block;
 }
-.station-bg::after {
-  /* Dark gradient overlay so text stays readable when video is at full opacity */
-  content: '';
+/* Dark tint layer: heavy at idle (chrome hidden), light on hover (video reveal) */
+.station-bg-tint {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(15, 14, 12, 0.55) 0%, rgba(15, 14, 12, 0.35) 60%, rgba(15, 14, 12, 0.65) 100%);
+  background: rgba(15, 14, 12, 0.82);
+  transition: background 0.5s ease;
+  z-index: 1;
 }
-.station.has-video:hover .station-bg { opacity: 1; }
+.station.has-video:hover .station-bg-tint {
+  background: rgba(15, 14, 12, 0.35);
+}
+/* Solid cover that hides the iframe entirely until first PLAYING event */
+.station-bg-cover {
+  position: absolute;
+  inset: 0;
+  background: #0f0e0c;
+  opacity: 1;
+  transition: opacity 0.6s ease;
+  z-index: 2;
+}
+.station.is-ready .station-bg-cover {
+  opacity: 0;
+}
 /* Push all card text content above the bg */
 .station > .station-num,
 .station > .station-name,
