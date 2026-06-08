@@ -93,7 +93,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Bagel+Fat+One&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20260608-movements">
+<link rel="stylesheet" href="styles.css?v=20260608-hover">
 </head>
 <body>
 
@@ -588,11 +588,21 @@
         <div class="station-dist">1,000 m</div>
         <div class="station-desc">Concept2. Long drive, controlled recovery. Target ~1:50–2:10/500m. Big legs, big finish.</div>
       </div>
-      <div class="station">
+      <div class="station has-video" data-yt="Ip6VTt6e7DQ">
         <div class="station-num">06</div>
         <div class="station-name">Farmer's</div>
         <div class="station-dist">200 m</div>
         <div class="station-desc">Two kettlebells (24/16 kg open). Quick steps, tall posture, lockout grip. Fast walking beats stopping.</div>
+        <div class="station-video">
+          <iframe
+            src="https://www.youtube.com/embed/Ip6VTt6e7DQ?enablejsapi=1&mute=1&playsinline=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0"
+            title="Farmer's Carry — HYROX movement demo"
+            frameborder="0"
+            allow="autoplay; encrypted-media; picture-in-picture"
+            referrerpolicy="strict-origin-when-cross-origin"
+            loading="lazy"></iframe>
+          <span class="station-video-hint">▶ HOVER</span>
+        </div>
       </div>
       <div class="station">
         <div class="station-num">07</div>
@@ -605,32 +615,6 @@
         <div class="station-name">Wall Balls</div>
         <div class="station-dist">100</div>
         <div class="station-desc">100 reps for all divisions. Break early into sets of 25 — saving reps for the finish loses time.</div>
-      </div>
-    </div>
-
-    <!-- ============ MOVEMENT LIBRARY ============ -->
-    <div class="movements" id="movements">
-      <div class="movements-head">
-        <span class="movements-eyebrow">▶ Watch the movement</span>
-        <span class="movements-meta">More clips coming — got footage? DM @303rox</span>
-      </div>
-      <div class="movements-grid">
-        <div class="movement-card">
-          <div class="movement-video">
-            <iframe
-              src="https://www.youtube.com/embed/Ip6VTt6e7DQ"
-              title="Farmer's Carry — HYROX movement demo"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerpolicy="strict-origin-when-cross-origin"
-              allowfullscreen
-              loading="lazy"></iframe>
-          </div>
-          <div class="movement-label">
-            <span class="movement-num">06</span>
-            <span class="movement-name">Farmer's Carry</span>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -971,6 +955,59 @@ function submitInfo(type) {
     });
   }
   render();
+})();
+</script>
+
+<!-- ============ HOVER-TO-PLAY MOVEMENT VIDEOS ============ -->
+<script>
+(function() {
+  // Load YouTube IFrame API
+  if (!window.YT) {
+    var s = document.createElement('script');
+    s.src = 'https://www.youtube.com/iframe_api';
+    s.async = true;
+    document.head.appendChild(s);
+  }
+  window.onYouTubeIframeAPIReady = function() {
+    var cards = document.querySelectorAll('.station.has-video');
+    cards.forEach(function(card, i) {
+      var iframe = card.querySelector('iframe');
+      if (!iframe) return;
+      if (!iframe.id) iframe.id = 'mvyt-' + i;
+      new YT.Player(iframe.id, {
+        events: {
+          onReady: function(event) {
+            var canHover = window.matchMedia('(hover: hover)').matches;
+            if (canHover) {
+              card.addEventListener('mouseenter', function() {
+                card.classList.add('is-playing');
+                event.target.playVideo();
+              });
+              card.addEventListener('mouseleave', function() {
+                card.classList.remove('is-playing');
+                event.target.pauseVideo();
+                setTimeout(function() {
+                  try { event.target.seekTo(0); } catch (e) {}
+                }, 120);
+              });
+            } else {
+              // Touch device: tap to toggle
+              card.addEventListener('click', function(ev) {
+                ev.preventDefault();
+                if (card.classList.contains('is-playing')) {
+                  card.classList.remove('is-playing');
+                  event.target.pauseVideo();
+                } else {
+                  card.classList.add('is-playing');
+                  event.target.playVideo();
+                }
+              });
+            }
+          }
+        }
+      });
+    });
+  };
 })();
 </script>
 
