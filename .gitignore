@@ -29,5 +29,8 @@ stories.html
 # Scheduled task output — local digests only
 _weekly-digests/
 
-# Raw video source files — too big for the repo, videos served via YouTube embeds
+# Video assets — exclude everything by default, then allowlist the
+# compressed/web-ready clips we want to deploy. This prevents 100MB+ raw
+# originals or broken intermediate transcodes from sneaking in.
 videos/
+!videos/stations/farmers-carry.mp4

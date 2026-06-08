@@ -93,7 +93,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Bagel+Fat+One&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20260608-cover">
+<link rel="stylesheet" href="styles.css?v=20260608-selfhost">
 </head>
 <body>
 
@@ -588,17 +588,16 @@
         <div class="station-dist">1,000 m</div>
         <div class="station-desc">Concept2. Long drive, controlled recovery. Target ~1:50–2:10/500m. Big legs, big finish.</div>
       </div>
-      <div class="station has-video" data-yt="Ip6VTt6e7DQ">
+      <div class="station has-video">
         <div class="station-bg" aria-hidden="true">
-          <iframe
-            src="https://www.youtube.com/embed/Ip6VTt6e7DQ?autoplay=1&mute=1&playsinline=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0&enablejsapi=1"
-            title="Farmer's Carry — HYROX movement demo"
-            frameborder="0"
-            allow="autoplay; encrypted-media; picture-in-picture"
-            referrerpolicy="strict-origin-when-cross-origin"
-            loading="lazy"></iframe>
+          <video
+            src="videos/stations/farmers-carry.mp4"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"></video>
           <div class="station-bg-tint"></div>
-          <div class="station-bg-cover"></div>
         </div>
         <div class="station-num">06</div>
         <div class="station-name">Farmer's</div>
@@ -959,38 +958,6 @@ function submitInfo(type) {
 })();
 </script>
 
-<!-- ============ JS-DRIVEN VIDEO LOOP FOR STATION BACKGROUNDS ============ -->
-<script>
-(function() {
-  if (document.querySelector('.station.has-video iframe') && !window.YT) {
-    var s = document.createElement('script');
-    s.src = 'https://www.youtube.com/iframe_api';
-    s.async = true;
-    document.head.appendChild(s);
-  }
-})();
-window.onYouTubeIframeAPIReady = function() {
-  document.querySelectorAll('.station.has-video iframe').forEach(function(iframe, i) {
-    if (!iframe.id) iframe.id = 'mvyt-' + i;
-    var card = iframe.closest('.station');
-    new YT.Player(iframe.id, {
-      events: {
-        onStateChange: function(e) {
-          // 1 = PLAYING. Reveal the iframe (cover fades) only once it's actually playing.
-          if (e.data === 1 && card && !card.classList.contains('is-ready')) {
-            card.classList.add('is-ready');
-          }
-          // 0 = ENDED. Seek to start and play again to loop without playlist-mode chrome.
-          if (e.data === 0) {
-            e.target.seekTo(0);
-            e.target.playVideo();
-          }
-        }
-      }
-    });
-  });
-};
-</script>
 
 </body>
 </html>

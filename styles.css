@@ -1070,39 +1070,28 @@ section#what .section-num::before {
   overflow: hidden;
   pointer-events: none;
 }
+.station-bg video,
 .station-bg iframe {
   position: absolute;
   top: 50%;
   left: 50%;
-  /* Scale up to crop YouTube's letterbox bars; iframe fills card edge-to-edge */
-  width: 110%;
-  height: 110%;
+  width: 100%;
+  height: 100%;
   transform: translate(-50%, -50%);
   border: 0;
   display: block;
+  object-fit: cover; /* video fills card edge-to-edge, cropping if needed */
 }
-/* Dark tint layer: heavy at idle (chrome hidden), light on hover (video reveal) */
+/* Dark tint layer: heavy at idle (subtle ambient motion), light on hover (full reveal) */
 .station-bg-tint {
   position: absolute;
   inset: 0;
-  background: rgba(15, 14, 12, 0.82);
+  background: rgba(15, 14, 12, 0.75);
   transition: background 0.5s ease;
   z-index: 1;
 }
 .station.has-video:hover .station-bg-tint {
-  background: rgba(15, 14, 12, 0.35);
-}
-/* Solid cover that hides the iframe entirely until first PLAYING event */
-.station-bg-cover {
-  position: absolute;
-  inset: 0;
-  background: #0f0e0c;
-  opacity: 1;
-  transition: opacity 0.6s ease;
-  z-index: 2;
-}
-.station.is-ready .station-bg-cover {
-  opacity: 0;
+  background: rgba(15, 14, 12, 0.25);
 }
 /* Push all card text content above the bg */
 .station > .station-num,
