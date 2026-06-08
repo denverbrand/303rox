@@ -33,9 +33,14 @@ _weekly-digests/
 # compressed/web-ready clips we want to deploy. This prevents 100MB+ raw
 # originals or broken intermediate transcodes from sneaking in.
 #
-# Pattern: block everything, then re-allow the stations/ subdir, then
-# block everything inside it, then allowlist each web-ready .mp4.
+# Pattern: block everything, then re-allow each subdir, then block
+# everything inside it, then allowlist each web-ready .mp4.
 videos/*
 !videos/stations/
 videos/stations/*
 !videos/stations/farmers-carry.mp4
+!videos/hero/
+videos/hero/*
+# Allow all web-ready hero clips so you can swap which one plays without
+# editing .gitignore each time. Keep clips compressed (<10MB ideally).
+!videos/hero/*.mp4
