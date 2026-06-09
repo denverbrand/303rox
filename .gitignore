@@ -44,6 +44,7 @@ videos/stations/*
 !videos/stations/burpee-bj.mp4
 !videos/stations/skierg.mp4
 !videos/stations/row.mp4
+!videos/stations/sled-pull.mp4
 !videos/hero/
 videos/hero/*
 # Allow all web-ready hero clips so you can swap which one plays without
