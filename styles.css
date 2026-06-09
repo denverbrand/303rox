@@ -267,6 +267,40 @@ body::after {
   border: 1.5px solid var(--ink);
 }
 
+/* Hamburger toggle — hidden on desktop */
+.nav-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+  margin-left: auto;
+  flex-shrink: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.nav-toggle-bar {
+  display: block;
+  width: 26px;
+  height: 3px;
+  background: var(--ink);
+  border-radius: 2px;
+  transition: transform 0.25s ease, opacity 0.2s ease;
+}
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(2) {
+  opacity: 0;
+}
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
 /* Mobile + narrow tablet + IG WebView: drop the box, full-width lavender bar */
 /* Breakpoint bumped to 900px to catch Instagram's in-app browser, which renders */
 /* at a wider effective viewport than the actual phone width.                  */
@@ -291,27 +325,62 @@ body::after {
     flex-direction: row;            /* explicit — some WebViews don't default reliably */
     align-items: center;
     flex-wrap: nowrap;
+    position: relative;             /* anchor for dropdown panel */
   }
   .nav-logo { height: 48px; max-width: 160px; flex-shrink: 0; }
   .nav-logo img { height: 48px; max-width: 160px; max-height: 48px; }
+  .nav-toggle { display: inline-flex; }
+
+  /* Dropdown panel — collapsed by default, expands when .subnav.is-open */
   .nav-links {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    overflow-y: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #dcc6d9;
+    background: var(--bg-3);
+    border-bottom: 5px solid #0f0e0c;
+    flex-direction: column;
+    align-items: stretch;
     justify-content: flex-start;
-    gap: 4px;
-    font-size: 13px;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    -webkit-overflow-scrolling: touch;
-    flex: 1 1 auto;
-    min-width: 0;
+    gap: 0;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.35s ease, padding 0.35s ease;
+    z-index: 50;
+    flex-wrap: nowrap;
   }
-  .nav-links::-webkit-scrollbar { display: none; }
+  .subnav.is-open .nav-links {
+    max-height: 90vh;
+    padding: 8px 0 12px;
+    overflow-y: auto;
+  }
   .nav-links a {
     flex-shrink: 0;
-    padding: 6px 12px;
+    padding: 14px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 0;
+    border-bottom: 1px solid rgba(15, 14, 12, 0.12);
+    text-align: left;
+    color: var(--ink);
     white-space: nowrap;
+  }
+  .nav-links a:last-child {
+    border-bottom: none;
+  }
+  .nav-links a:hover,
+  .nav-links a:active {
+    background: var(--lime);
+    color: var(--ink);
+  }
+  .nav-travel {
+    background: var(--lime);
+    border: none;
+    border-bottom: 1px solid rgba(15, 14, 12, 0.12);
+    margin: 0;
   }
 }
 
